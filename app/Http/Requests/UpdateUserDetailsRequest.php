@@ -14,14 +14,14 @@ class UpdateUserDetailsRequest extends FormRequest
     public function rules()
     {
         return [
-            'email' => 'required|email',
+            'email' => 'nullable',
             'name' => 'required_if:is_new,true|string|max:255',
             'gender' => 'sometimes|string|max:50',
             'age' => 'sometimes|integer|min:0|max:120',
             'phone' => 'sometimes|string|max:20',
             'address' => 'sometimes|string|max:255',
-            'height' => 'sometimes|string|max:20',
-            'weight' => 'sometimes|string|max:20',
+            'height' => 'sometimes|max:20',
+            'weight' => 'sometimes|max:20',
             'medical_history' => 'sometimes|string|nullable',
             'current_medications' => 'sometimes|string|nullable',
             'allergies' => 'sometimes|string|nullable',
