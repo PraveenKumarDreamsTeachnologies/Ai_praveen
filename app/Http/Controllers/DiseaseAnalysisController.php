@@ -121,6 +121,7 @@ class DiseaseAnalysisController extends Controller
                         'matched_symptoms' => $commonSymptoms,
                         'match_count' => count($commonSymptoms),
                         'is_virtual' => false,
+                        'geminiMedicalAdvice' => $geminiMedicalAdvice
                     ];
                 }
             }

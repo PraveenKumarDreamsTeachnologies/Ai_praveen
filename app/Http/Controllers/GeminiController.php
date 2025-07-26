@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Services\GeminiService; // Use your GeminiService
 use App\Models\Product; // Your Product model
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str; // For string manipulation
@@ -20,6 +21,7 @@ class GeminiController extends Controller
     {
         return view('prompt');
     }
+   
     public function analyze(Request $request)
     {
         // 1. Validate the incoming request
@@ -41,7 +43,7 @@ class GeminiController extends Controller
             foreach ($uploadedImages as $image) {
                 try {
                     $fileName = time() . '_' . Str::random(10) . '.' . $image->getClientOriginalExtension();
-                    $path = $image->storeAs('public/symptoms_images', $fileName);
+                    $path = $image->storeAs('symptoms_images', $fileName, 'public');
                     $imagePaths[] = Storage::url($path);
                 } catch (\Exception $e) {
                     Log::error("Failed to store uploaded image: " . $e->getMessage());
@@ -49,7 +51,6 @@ class GeminiController extends Controller
                 }
             }
         }
-
         $identifiedSymptoms = [];
         $geminiMedicalAdvice = "Unable to provide preliminary advice at this time.";
         $suggestedRealProducts = [];
@@ -62,7 +63,6 @@ class GeminiController extends Controller
             } else {
                 $identifiedSymptoms = $this->geminiService->analyzeDisease($userSymptomsDescription);
             }
-            // dd($identifiedSymptoms);
             // If Gemini didn't return any symptoms, handle it gracefully
             if (empty($identifiedSymptoms)) {
                 $geminiMedicalAdvice = $this->geminiService->ask(
@@ -110,6 +110,7 @@ class GeminiController extends Controller
                     ];
                 }
             }
+
             // Sort and limit real products
             usort($suggestedRealProducts, function ($a, $b) {
                 return $b['match_count'] <=> $a['match_count'];
@@ -125,10 +126,9 @@ class GeminiController extends Controller
             //      // Limit virtual products too if desired
             //      $suggestedVirtualProducts = array_slice($suggestedVirtualProducts, 0, 3);
             // }
-
+            
             // Combine all suggestions (real products prioritized, then virtual)
             $allSuggestedProducts = array_merge($suggestedRealProducts, $suggestedVirtualProducts);
-            // dd($geminiMedicalAdvice);
             return redirect()->route('products.listing.by.symptoms')
                 ->with('userSymptomsDescription', $userSymptomsDescription)
                 ->with('imagePaths', $imagePaths)
@@ -166,18 +166,17 @@ class GeminiController extends Controller
         $infoMessage = $request->session()->get('info'); // For info messages from analysis
         // If no products were suggested by the symptom analysis, or if the user
         // directly accesses this page, load all active products.
-        if (empty($allSuggestedProducts)) {
-            $allSuggestedProducts = Product::where('status', 'active')->get()->map(function ($product) {
-                // Format real products similarly for consistent display
-                return [
-                    'product' => $product,
-                    'matched_symptoms' => $product->solution, // Show all solutions if not symptom-matched
-                    'match_count' => 0, // No specific match count if showing all
-                    'is_virtual' => false,
-                ];
-            })->toArray();
-        }
-
+        // if (empty($allSuggestedProducts)) {
+        //     $allSuggestedProducts = Product::where('status', 'active')->get()->map(function ($product) {
+        //         // Format real products similarly for consistent display
+        //         return [
+        //             'product' => $product,
+        //             'matched_symptoms' => $product->solution, // Show all solutions if not symptom-matched
+        //             'match_count' => 0, // No specific match count if showing all
+        //             'is_virtual' => false,
+        //         ];
+        //     })->toArray();
+        // }
         return view('product_listing', compact(
             'userSymptomsDescription',
             'imagePaths',

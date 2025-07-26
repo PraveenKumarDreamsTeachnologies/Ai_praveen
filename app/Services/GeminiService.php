@@ -124,4 +124,6 @@ class GeminiService
 
         return [];
     }
+
+    
 }
