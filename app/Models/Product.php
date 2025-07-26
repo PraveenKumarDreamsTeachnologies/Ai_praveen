@@ -22,6 +22,7 @@ class Product extends Model
         'stock_quantity',
         'expiry_date',
         'status',
+        'solution', // Added solution column
     ];
 
     /**
@@ -32,5 +33,6 @@ class Product extends Model
     protected $casts = [
         'price' => 'decimal:2',
         'expiry_date' => 'date',
+        'solution' => 'array', // Cast solution to array
     ];
 }

@@ -20,7 +20,8 @@ class ProductSeeder extends Seeder
                 'price' => 5.99,
                 'stock_quantity' => 250,
                 'expiry_date' => Carbon::now()->addYears(2)->format('Y-m-d'),
-                'status' => 'active'
+                'status' => 'active',
+                'solution' => ["fever", "headache", "mild pain"]
             ],
             [
                 'name' => 'Ibuprofen 200mg',
@@ -28,7 +29,8 @@ class ProductSeeder extends Seeder
                 'price' => 7.50,
                 'stock_quantity' => 180,
                 'expiry_date' => Carbon::now()->addYears(3)->format('Y-m-d'),
-                'status' => 'active'
+                'status' => 'active',
+                'solution' => ["fever", "inflammation", "muscle pain"]
             ],
             [
                 'name' => 'Amoxicillin 250mg',
@@ -36,7 +38,8 @@ class ProductSeeder extends Seeder
                 'price' => 12.75,
                 'stock_quantity' => 90,
                 'expiry_date' => Carbon::now()->addYear()->format('Y-m-d'),
-                'status' => 'active'
+                'status' => 'active',
+                'solution' => ["sore throat", "bacterial infections"]
             ],
             [
                 'name' => 'Dextromethorphan Syrup',
@@ -44,7 +47,8 @@ class ProductSeeder extends Seeder
                 'price' => 8.25,
                 'stock_quantity' => 120,
                 'expiry_date' => Carbon::now()->addMonths(18)->format('Y-m-d'),
-                'status' => 'active'
+                'status' => 'active',
+                'solution' => ["dry cough"]
             ],
             [
                 'name' => 'Loratadine 10mg',
@@ -52,7 +56,8 @@ class ProductSeeder extends Seeder
                 'price' => 6.40,
                 'stock_quantity' => 200,
                 'expiry_date' => Carbon::now()->addYears(2)->format('Y-m-d'),
-                'status' => 'active'
+                'status' => 'active',
+                'solution' => ["allergies", "skin rash", "hives"]
             ],
             [
                 'name' => 'Salbutamol Inhaler',
@@ -60,7 +65,8 @@ class ProductSeeder extends Seeder
                 'price' => 15.99,
                 'stock_quantity' => 75,
                 'expiry_date' => Carbon::now()->addMonths(10)->format('Y-m-d'),
-                'status' => 'active'
+                'status' => 'active',
+                'solution' => ["asthma", "bronchospasm", "breathing difficulties"]
             ],
             [
                 'name' => 'Cetirizine 10mg',
@@ -68,7 +74,8 @@ class ProductSeeder extends Seeder
                 'price' => 4.99,
                 'stock_quantity' => 150,
                 'expiry_date' => Carbon::now()->addYears(3)->format('Y-m-d'),
-                'status' => 'active'
+                'status' => 'active',
+                'solution' => ["allergies", "itchy skin", "hives"]
             ],
             [
                 'name' => 'Hydrocortisone Cream 1%',
@@ -76,7 +83,8 @@ class ProductSeeder extends Seeder
                 'price' => 6.25,
                 'stock_quantity' => 60,
                 'expiry_date' => Carbon::now()->addMonths(15)->format('Y-m-d'),
-                'status' => 'active'
+                'status' => 'active',
+                'solution' => ["skin rash", "eczema", "dermatitis"]
             ],
             [
                 'name' => 'Guaifenesin Syrup',
@@ -84,7 +92,8 @@ class ProductSeeder extends Seeder
                 'price' => 7.80,
                 'stock_quantity' => 95,
                 'expiry_date' => Carbon::now()->addYear()->format('Y-m-d'),
-                'status' => 'active'
+                'status' => 'active',
+                'solution' => ["chest congestion", "productive cough"]
             ],
             [
                 'name' => 'Chlorpheniramine Maleate',
@@ -92,7 +101,8 @@ class ProductSeeder extends Seeder
                 'price' => 5.20,
                 'stock_quantity' => 130,
                 'expiry_date' => Carbon::now()->addYears(2)->format('Y-m-d'),
-                'status' => 'active'
+                'status' => 'active',
+                'solution' => ["cough", "cold", "allergies"]
             ]
         ];
 
