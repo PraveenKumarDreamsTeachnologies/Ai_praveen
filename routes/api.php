@@ -18,3 +18,5 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('symptoms', SymptomController::class);
 Route::apiResource('products', ProductController::class);
 Route::put('/user-details', [UserDetailsController::class, 'updateOrCreate']);
+
+Route::get('/productslist', [ProductController::class, 'indexpoduct']);
