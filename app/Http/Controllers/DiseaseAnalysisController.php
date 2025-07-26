@@ -33,7 +33,7 @@ class DiseaseAnalysisController extends Controller
     {
         // 1. Validate the incoming request
         $validator = Validator::make($request->all(), [
-            'symptoms' => 'required|string|min:20|max:2000',
+            'symptoms' => 'required|string|min:3|max:2000',
             'images.*' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:5120',
             'images' => 'max:5',
         ]);

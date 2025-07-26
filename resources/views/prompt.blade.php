@@ -70,7 +70,7 @@
         <h2 class="text-3xl font-extrabold text-gray-900 mb-6 text-center">Report Your Symptoms</h2>
         <p class="text-gray-600 text-center mb-8">Please describe your symptoms and upload any relevant images for a comprehensive assessment.</p>
 
-        <form action="{{ route('analyze') }}" method="POST" enctype="multipart/form-data" class="space-y-6">
+        <form action="{{ route('gemini.submit-symptoms') }}" method="POST" enctype="multipart/form-data" class="space-y-6">
             @csrf
 
             <div>
