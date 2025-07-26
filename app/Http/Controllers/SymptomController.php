@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\Symptom;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 
 class SymptomController extends Controller
@@ -15,9 +14,7 @@ class SymptomController extends Controller
      */
     public function index()
     {
-        $symptoms = Symptom::where('user_id', Auth::id())
-            ->orderBy('created_at', 'desc')
-            ->get();
+        $symptoms = Symptom::orderBy('created_at', 'desc')->get();
 
         return response()->json([
             'success' => true,
@@ -38,7 +35,6 @@ class SymptomController extends Controller
         ]);
 
         $symptom = Symptom::create([
-            'user_id' => Auth::id(),
             'description' => $validated['description'],
             'severity' => $validated['severity'],
             'onset' => $validated['onset'],
@@ -57,8 +53,6 @@ class SymptomController extends Controller
      */
     public function show(Symptom $symptom)
     {
-        $this->authorize('view', $symptom);
-
         return response()->json([
             'success' => true,
             'data' => $symptom
@@ -70,8 +64,6 @@ class SymptomController extends Controller
      */
     public function update(Request $request, Symptom $symptom)
     {
-        $this->authorize('update', $symptom);
-
         $validated = $request->validate([
             'description' => 'sometimes|required|string|max:255',
             'severity' => ['sometimes', 'required', Rule::in(['mild', 'moderate', 'severe'])],
@@ -93,8 +85,6 @@ class SymptomController extends Controller
      */
     public function destroy(Symptom $symptom)
     {
-        $this->authorize('delete', $symptom);
-
         $symptom->delete();
 
         return response()->json([
