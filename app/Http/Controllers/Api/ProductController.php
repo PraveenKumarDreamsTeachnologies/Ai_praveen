@@ -105,4 +105,26 @@ class ProductController extends Controller
             'data' => null
         ]);
     }
+
+     public function indexpoduct()
+     {
+        $products = Product::select(['id', 'name', 'description'])
+                          ->where('status', 'active')
+                          ->get();
+
+        if ($products->isEmpty()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'No products found.',
+                'data' => null
+            ], 404);
+        }
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Products retrieved successfully.',
+            'data' => $products
+        ]);
+    }
+
 }

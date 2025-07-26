@@ -3,6 +3,7 @@
 use App\Http\Controllers\API\ProductController;
 use App\Http\Controllers\DiseaseAnalysisController;
 use App\Http\Controllers\SymptomController;
+use App\Http\Controllers\UserDetailsController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -16,3 +17,6 @@ Route::middleware('auth:sanctum')->group(function () {
 });
     Route::apiResource('symptoms', SymptomController::class);
 Route::apiResource('products', ProductController::class);
+Route::put('/user-details', [UserDetailsController::class, 'updateOrCreate']);
+
+Route::get('/productslist', [ProductController::class, 'indexpoduct']);
